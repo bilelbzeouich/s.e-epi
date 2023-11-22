@@ -1,0 +1,81 @@
+**1. Copie du fichier /etc/passwd dans votre home directory**
+
+```
+cp /etc/passwd ~/passwd
+```
+
+**2. Tri de passwd sur le nom**
+
+```
+sort -n -t: -k 2 passwd
+```
+
+**3. Extraction des nom de login et UID puis triez suivant les UID**
+
+```
+cut -d: -f1,3 passwd | sort -n -k 2 > uid_login
+```
+
+**4. Remplacement des ":" par des " " dans le fichier de résultat précédent**
+
+```
+sed -e 's/:/ /g' uid_login > uid_login_espace
+```
+
+**5. Modification des cinq dernières lignes du fichier**
+
+```
+sed -n '5,$p' uid_login_espace > uid_login_espace_modif
+```
+
+**6. Modification des cinq premiers caractères du fichier**
+
+```
+sed -n '1,5s/.*/\1/p' uid_login_espace_modif > uid_login_espace_modif_5
+```
+
+**7. Affichage du nombre des utilisateurs admettant des comptes**
+
+```
+wc -l passwd
+```
+
+**8. Affichage du nombre des utilisateurs connectés au système**
+
+```
+w | wc -l
+```
+
+**Explications**
+
+**1. Copie du fichier /etc/passwd dans votre home directory**
+
+La commande `cp` permet de copier un fichier d'un répertoire à un autre. Dans ce cas, nous copions le fichier `/etc/passwd` dans notre répertoire home.
+
+**2. Tri de passwd sur le nom**
+
+La commande `sort` permet de trier un fichier. L'option `-n` permet de trier par nombre, et l'option `-t:` indique que le caractère de séparation est le deux-points (`:`). Dans ce cas, nous trions le fichier `passwd` sur le deuxième champ, qui contient le nom de l'utilisateur.
+
+**3. Extraction des nom de login et UID puis triez suivant les UID**
+
+La commande `cut` permet d'extraire des champs d'un fichier. L'option `-d:` indique que le caractère de séparation est le deux-points (`:`). Dans ce cas, nous extrayons les deux premiers champs du fichier `passwd`, qui contiennent le nom de login et l'UID. Nous utilisons ensuite la commande `sort` pour trier les lignes résultantes sur l'UID.
+
+**4. Remplacement des ":" par des " " dans le fichier de résultat précédent**
+
+La commande `sed` permet d'éditer un fichier. L'option `-e` permet d'éditer le fichier en utilisant des expressions régulières. Dans ce cas, nous remplaçons tous les deux-points (`:`) par des espaces (` `).
+
+**5. Modification des cinq dernières lignes du fichier**
+
+La commande `sed` permet d'éditer un fichier. L'option `-n` permet de limiter l'édition à certaines lignes. Dans ce cas, nous modifions les cinq dernières lignes du fichier.
+
+**6. Modification des cinq premiers caractères du fichier**
+
+La commande `sed` permet d'éditer un fichier. L'option `1,5` permet de limiter l'édition aux cinq premières lignes. Dans ce cas, nous modifions les cinq premiers caractères de chaque ligne du fichier.
+
+**7. Affichage du nombre des utilisateurs admettant des comptes**
+
+La commande `wc` permet de compter les lignes, les mots et les caractères d'un fichier. L'option `-l` permet de compter uniquement les lignes. Dans ce cas, nous comptons le nombre de lignes du fichier `passwd`, qui correspond au nombre d'utilisateurs admettant des comptes.
+
+**8. Affichage du nombre des utilisateurs connectés au système**
+
+La commande `w` affiche la liste des utilisateurs connectés au système. La commande `wc -l` permet de compter les lignes de la sortie de la commande `w`. Dans ce cas, nous comptons le nombre de lignes de la sortie de la commande `w`, qui correspond au nombre d'utilisateurs connectés au système.
