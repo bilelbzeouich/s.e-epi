@@ -1,0 +1,114 @@
+**1. Décomposition, explication et simplification de la commande cat virus | grep programmes | wc – l**
+
+* **cat virus** : Affiche le contenu du fichier virus.
+* **grep programmes** : Recherche les lignes du fichier virus contenant le mot "programmes".
+* **wc – l** : Compte le nombre de lignes du fichier résultant de la sortie de grep.
+
+**En résumé, cette commande affiche le nombre de lignes du fichier virus contenant le mot "programmes".**
+
+**Une simplification possible de cette commande serait d'utiliser la commande find.**
+
+```
+find virus -name "*programmes*" | wc – l
+```
+
+Cette commande recherche les fichiers du répertoire virus dont le nom contient le mot "programmes". Elle utilise ensuite wc – l pour compter le nombre de fichiers trouvés.
+
+**2. Tri du contenu du répertoire de connexion sur le champ taille du fichier tout en sauvegardant la liste en entrée sur un fichier save1**
+
+```
+find . -size +0 -exec sort -n {} + | tee save1
+```
+
+Cette commande recherche tous les fichiers du répertoire courant dont la taille est supérieure à 0. Elle utilise ensuite sort -n pour trier les fichiers trouvés par ordre croissant de taille. Enfin, elle utilise tee pour sauvegarder la liste des fichiers triés sur le fichier save1.
+
+**3. Demande à grep de rechercher un texte commençant par ‘-‘**
+
+```
+grep -E "^-"
+```
+
+L'option -E permet de spécifier un modèle de recherche utilisant des expressions régulières. Dans ce cas, le modèle ^- correspond à une chaîne de caractères commençant par un tiret.
+
+**4. Liste des fichiers du répertoire courant contenant xxx**
+
+```
+ls | grep xxx
+```
+
+Cette commande utilise ls pour lister le contenu du répertoire courant. Elle utilise ensuite grep pour rechercher les lignes de la liste contenant le mot "xxx".
+
+**5. Création du fichier exe3**
+
+```
+echo "Effacer le fichier f2" > exe3
+echo "Effacer le fichier f3" >> exe3
+echo "Déplacer vers User3" >> exe3
+echo "Déplacer le fichier f21 vers le répertoire tp1" >> exe3
+echo "Déplacer le fichier f21 vers tp3" >> exe3
+echo "Ecraser le répertoire tp1" >> exe3
+echo "Donner la configuration pour chaque compte" >> exe3
+```
+
+Cette commande utilise la commande echo pour écrire le contenu spécifié dans le fichier exe3.
+
+**6. Affichage du nombre de ligne de mots et nombre de caractères du fichier exe3**
+
+```
+wc exe3
+```
+
+Cette commande affiche les informations suivantes sur le fichier exe3 :
+
+* Le nombre de lignes
+* Le nombre de mots
+* Le nombre de caractères
+
+**7. Affichage de la portion du fichier de la ligne 3 à la ligne 5**
+
+```
+head -n 3 exe3 | tail -n 2
+```
+
+Cette commande utilise head pour afficher les 3 premières lignes du fichier exe3. Elle utilise ensuite tail pour afficher les 2 dernières lignes de la sortie de head.
+
+**8. Affichage des 20 premiers caractères et des 20 derniers caractères du fichier exe3**
+
+```
+head -c 20 exe3
+tail -c 20 exe3
+```
+
+Ces deux commandes affichent les 20 premiers caractères et les 20 derniers caractères du fichier exe3, respectivement.
+
+**9. Affichage des lignes qui ne contiennent pas l’expression vers**
+
+```
+grep -v "vers" exe3
+```
+
+L'option -v permet de spécifier un modèle de recherche à exclure. Dans ce cas, le modèle "vers" correspond à la chaîne de caractères "vers".
+
+**10. Liste des commandes qui permet de donner le résultat suivant**
+
+```
+cat exe3 | grep -v "vers" | sed -n "s/.*Effacer//p"
+```
+
+Cette commande utilise grep pour rechercher les lignes du fichier exe3 ne contenant pas l'expression "vers". Elle utilise ensuite sed pour supprimer le début de chaque ligne trouvée. Le résultat de cette commande est le suivant :
+
+```
+f2
+f3
+User3
+f21
+tp3
+configuration
+```
+
+Une autre solution possible serait d'utiliser la commande tr.
+
+```
+cat exe3 | grep -v "vers" | tr -d " "
+```
+
